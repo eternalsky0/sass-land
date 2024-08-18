@@ -1,0 +1,218 @@
+$white: #FFFFFF;
+$pink-brand: #FFC1D8;
+$main-color: #E43071;
+
+@mixin flex-center($direction: row, $justify: center, $align: center) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+}
+
+.container {
+    width: 100%;
+}
+
+.header__nav {
+    height: 85px;
+    background-color: $main-color;
+    @include flex-center(row, space-between);
+     border-radius: 1px;
+}
+
+.brand {
+    color: $white;
+    font-size: 40px;
+    font-weight: 800;
+    padding-top: 10px;
+    padding-left: 20px;
+}
+
+.span-branding {
+    color: $pink-brand;
+}
+
+.header__nav-list {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.header__nav-item a {
+    text-decoration: none;
+    color: $white;
+    transition: all 0.5s;
+    font-size: 16px;
+    font-weight: 400;
+
+    &:hover {
+        color: black;
+    }
+}
+
+.btn-login {
+    color: $main-color;
+    background-color: $white;
+    font-size: 16px;
+    font-weight: 400;
+    height: 50px;
+    width: 160px;
+    border-radius: 40px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.btn-loc {
+    padding-top: 20px;
+    padding-right: 20px;
+}
+
+.br-checkbox {
+    position: absolute;
+    visibility: hidden;
+}
+
+.burger {
+    cursor: pointer;
+    display: block;
+    position: relative;
+    border: none;
+    background: transparent;
+    width: 40px;
+    height: 26px;
+    z-index: 2;
+}
+
+.burger::before,
+.burger::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 4px;
+    border-radius: 10px;
+    background: $white;
+    left: 0;
+}
+
+.burger::before {
+    top: 0;
+    box-shadow: 0 11px 0 white;
+    transition: box-shadow .3s .15s, top .3s .15s, transform .3s;
+}
+
+.burger::after {
+    bottom: 0;
+    transition: bottom .3s .15s, transform .3s;
+}
+
+.br-checkbox:checked+.burger::before {
+    top: 11px;
+    transform: rotate(45deg);
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0);
+    transition: box-shadow .15s, top .3s, transform .3s .15s; // почему 2 значения трансформа?
+}
+
+.br-checkbox:checked+.burger::after {
+    bottom: 11px;
+    transform: rotate(-45deg);
+    transition: bottom .3s, transform .3s .15s;
+}
+
+.burger-navbar .header__nav-list {
+    padding-top: 65px;
+    top: 0;
+    right: 0;
+    position: absolute;
+    display: flex; //почему грид?
+    flex-direction: column;
+    gap: 10px;
+    background-color: #FFC1D8;
+    transform: translateX(100%); //что делает?
+    transition: .3s;
+    width: 200px;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.burger-navbar .header__nav-item:hover {
+    background-color: #FFC1D8;
+    color: $white;
+}
+
+.br-checkbox:checked~.header__nav-list {
+    transform: translateX(0);
+}
+
+//зачем ~ и для чего оно используется
+
+
+.burger-navbar {
+    display: none;
+}
+
+.btn-login.hide {
+    display: none;
+}
+
+.bb {
+    display: none;
+}
+
+@media (max-width: 1000px) {
+    .burger-navbar {
+        display: block;
+        width: 40px;
+        height: 26px;
+    }
+
+    .header__nav-list {
+        display: none;
+    }
+
+    .bb {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 30px;
+        gap: 15px;
+
+        .header__nav-item a {
+            color: black;
+            font-size: 20px;
+        }
+    }
+
+    .burger-navbar .header__nav-list {
+        z-index: 1;
+    }
+
+    .btn-loc.big {
+        display: none;
+    }
+
+    .btn-login {
+        font-size: 23px;
+    }
+}
+
+@media(max-width:700px) {
+    .brand {
+        color: $white;
+        font-size: 2rem;
+        align-self: center;
+        padding-top: 0;
+    }
+
+    .btn-login {
+        font-size: 16px;
+        width: 80px;
+    }
+}
